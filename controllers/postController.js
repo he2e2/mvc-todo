@@ -63,13 +63,13 @@ export const getEditPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
   try {
-    const result = Post.update(new ObjectId(req.params.id), req.body);
+    const result = await Post.update(new ObjectId(req.params.id), req.body);
 
     if (result.modifiedCount === 1) {
       res.json({
         success: true,
         message: "수정 완료",
-        redirectUrl: `/detail/${_id.toString()}`,
+        redirectUrl: `/detail/${req.params.id.toString()}`,
       });
     } else {
       res.status(404).json({
